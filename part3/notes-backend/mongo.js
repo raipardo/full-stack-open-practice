@@ -1,13 +1,15 @@
+require('dotenv').config()
 const mongoose = require('mongoose')
 
-if (process.argv.length < 3) {
-  console.log('give password as argument')
-  process.exit(1)
-}
+// if (process.argv.length < 3) {
+//   console.log('give password as argument')
+//   process.exit(1)
+// }
 
-const password = process.argv[2]
+// const password = process.argv[2]
+// const url = `mongodb+srv://fullstack:${password}@cluster0.int46ns.mongodb.net/testNoteApp?retryWrites=true&w=majority&appName=Cluster0`
 
-const url = `mongodb+srv://fullstack:${password}@cluster0.int46ns.mongodb.net/noteApp?retryWrites=true&w=majority&appName=Cluster0`
+const url = process.env.TEST_MONGODB_URI
 
 mongoose.set('strictQuery', false)
 
@@ -20,19 +22,19 @@ const noteSchema = new mongoose.Schema({
 
 const Note = mongoose.model('Note', noteSchema)
 
-// const note = new Note({
-//   content: "GET and POST are the most important methods of HTTP protocol",
-//   important: true,
-// });
+const note = new Note({
+  'content': 'TEST: GET and POST are the most important methods of HTTP protocol',
+  'important': true
+},)
 
-// note.save().then((result) => {
-//   console.log("note saved!");
-//   mongoose.connection.close();
-// });
-
-Note.find({}).then((result) => {
-  result.forEach((note) => {
-    console.log(note)
-  })
+note.save().then(() => {
+  console.log('note saved!')
   mongoose.connection.close()
 })
+
+// Note.find({}).then((result) => {
+//   result.forEach((note) => {
+//     console.log(note)
+//   })
+//   mongoose.connection.close()
+// })
