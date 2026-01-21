@@ -5,11 +5,12 @@ const typeDefs = /* GraphQL */ `
   }
 
   type Person {
-    name: String!
-    phone: String
-    address: Address!
-    id: ID!
-  }
+  name: String!
+  phone: String
+  address: Address!
+  friendOf: [User!]!
+  id: ID!
+}
 
   type User {
     username: String!
@@ -44,6 +45,10 @@ const typeDefs = /* GraphQL */ `
     createUser(username: String!): User
     login(username: String!, password: String!): Token
     addAsFriend(name: String!): User
+  }
+
+  type Subscription {
+    personAdded: Person!
   }
 `
 

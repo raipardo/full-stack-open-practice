@@ -2,12 +2,11 @@ import { useState } from 'react'
 import { useMutation } from '@apollo/client/react'
 import { LOGIN } from '../queries'
 
-
 const LoginForm = ({ setError, setToken }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const [ login ] = useMutation(LOGIN, {
+  const [login] = useMutation(LOGIN, {
     onCompleted: (data) => {
       const token = data.login.value
       setToken(token)
@@ -15,7 +14,7 @@ const LoginForm = ({ setError, setToken }) => {
     },
     onError: (error) => {
       setError(error.message)
-    }
+    },
   })
 
   const submit = (event) => {
@@ -27,19 +26,21 @@ const LoginForm = ({ setError, setToken }) => {
     <div>
       <form onSubmit={submit}>
         <div>
-          username <input
+          username{' '}
+          <input
             value={username}
             onChange={({ target }) => setUsername(target.value)}
           />
         </div>
         <div>
-          password <input
-            type='password'
+          password{' '}
+          <input
+            type="password"
             value={password}
             onChange={({ target }) => setPassword(target.value)}
           />
         </div>
-        <button type='submit'>login</button>
+        <button type="submit">login</button>
       </form>
     </div>
   )
